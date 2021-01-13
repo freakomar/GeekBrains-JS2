@@ -1,0 +1,149 @@
+header, footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    background-color: #444;
+    min-height: 50px;
+}
+
+footer {
+    padding: 5px 20px;
+    justify-content: flex-end;
+}
+
+.logo {
+    font-size: 28;
+    color: lightgrey;
+}
+
+.cart {
+    display: flex;
+}
+
+.cart-search {
+    display: flex;
+    align-items: center;
+    color: lightgrey;
+    margin-right: 10px;
+}
+
+.search-field {
+    background-color: darkgrey;
+    color: lightgrey;
+    border-radius: 5px;
+    margin: 0 3px;
+    border: none;
+}
+
+.search-button {
+    background: none;
+    border: none;
+    color: lightgrey;
+}
+
+.search-button:hover {
+    color: darkgrey;
+}
+
+.cart-button {
+    padding: 5px;
+    box-sizing: border-box;
+    background-color: #666;
+    color: lightgrey;
+    border-radius: 5px;
+    border: none;
+}
+
+.cart-button:hover, .remove-button:hover {
+    background-color: lightgrey;
+    color: #666;
+}
+
+.cart-button:active, .remove-button:active {
+    background-color: #666;
+    color: lightgrey;
+}
+
+.remove-button {
+    background-color: #666;
+    color: lightgrey;
+    border: none;
+    border-radius: 5px;
+}
+
+.cart-block {
+    position: absolute;
+    top: 50px;
+    right: 25px;
+    display: flex;
+    flex-direction: column;
+    background-color: #666;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.invisible {
+    display: none;
+}
+
+.cart-item {
+    min-width: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    margin: 5px;
+}
+
+.wrapper {
+    max-width: 1024px;
+    margin: 0 auto;
+    min-height: 75vh;
+    background-color: lightgrey;
+}
+
+.products {
+    padding: 5px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.products-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    box-sizing: border-box;
+    margin: 5px auto;
+    border: 1px solid darkgrey;
+}
+
+.item-title, .item-price {
+    margin: 5px;
+}
+
+.products-btn {
+    padding: 5px;
+    box-sizing: border-box;
+    color: #666;
+    background-color: #ccc;
+    border-radius: 5px;
+    border: 1px solid grey;
+    margin: 0 0 5px 0;
+}
+
+.products-btn:hover {
+    background-color: grey;
+}
+
+.products-btn:active {
+    background-color: #ccc;
+}
+
+.copyright {
+    color: lightgrey;
+}
