@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Your Burger</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="container">
+        <form action="#">
+            <fieldset class="choice">
+                <h2 class="title">Выбери размер</h2>
+                <label class='label'><img src="http://placehold.it/100x50">Большой<input type="radio" name="size" value="big" checked></label>
+                <label class='label'><img src="http://placehold.it/100x50">Маленький<input type="radio" name="size" value="small"></label>
+            </fieldset>
+            <fieldset class="choice">
+                <h2 class="title">Выбери начинку</h2>
+                <label class='label'><img src="http://placehold.it/100x50">Сыр<input type="radio" name="stuff" value="cheese" checked></label>
+                <label class='label'><img src="http://placehold.it/100x50">Салат<input type="radio" name="stuff" value="salad"></label>
+                <label class='label'><img src="http://placehold.it/100x50">Картошка<input type="radio" name="stuff" value="potato" ></label>
+            </fieldset>
+            <fieldset class="choice">
+                <h2 class="title">Выбери топпинг</h2>
+                <label class='label'><img src="http://placehold.it/100x50">Приправа<input type="checkbox" name="topping" value="spice" checked></label>
+                <label class='label'><img src="http://placehold.it/100x50">Майонез<input type="checkbox" name="topping" value="mayon" checked></label>
+            </fieldset>
+            <fieldset class="choice">
+                <h2 class="title">Создай свой Бургер</h2>
+                <div class="create">Создать</div>
+            </fieldset>
+    </form>
+    </div>
+    <script src="./js/main.js"></script>
+</body>
+</html>

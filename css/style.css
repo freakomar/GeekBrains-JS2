@@ -97,6 +97,10 @@ footer {
     margin: 5px;
 }
 
+.cart-p {
+    margin: 0 5px;
+}
+
 .wrapper {
     max-width: 1024px;
     margin: 0 auto;
