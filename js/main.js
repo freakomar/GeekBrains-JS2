@@ -6,7 +6,7 @@ class Product {
     }
 
     render() {
-        return `<div class="products-item" data-id="${this.id}" data-title="${this.title}" data-price="${this.price}">
+        return `<div class="products-item" data-id_product=${this.id} data-product_name="${this.title}" data-price=${this.price}>
             <img src="http://placehold.it/200x150" alt="image">
             <p class="item-title">${this.title}</p>
             <p class="item-price">${this.price}</p>
@@ -61,9 +61,9 @@ class ProductsList {
 
 class CartProduct {
     constructor(item) {
-        this.id = item.id
-        this.title = item.title
-        this.price = item.price
+        this.id = +item.id_product
+        this.title = item.product_name
+        this.price = +item.price
         this.quantity = 1 
     }
     
@@ -93,7 +93,7 @@ class Cart {
         document.querySelector('.cart-button').addEventListener('click', () => {
             this.container.classList.toggle('invisible')
             this.shown = !this.shown
-        })//уместно ли так или лучше создавать переменные для дом элементов и уже с ними работать?
+        })
         this.container.addEventListener('click', (e) => {
             if (e.target.className === 'remove-button' || e.target.parentNode.className === 'remove-button') { //здесь не придумал ничего лучше, т.к. не срабатывает обработчик на вложенном элеиенте, пришлось маленько костылить, как оптимизировать?
                 cart.removeItem(e.target.parentNode.dataset)
@@ -110,7 +110,7 @@ class Cart {
             this.shown = !this.shown
         }
         let item = new CartProduct(data)
-        let findItem = this.items.find(el => el.id === item.id)
+        let findItem = this.items.find(el => el.id === +item.id)
         if (findItem) {
             findItem.quantity++
         } else {
@@ -121,7 +121,7 @@ class Cart {
     }
 
     removeItem(data) {
-        let findItem = this.items.find(el => el.id === data.id)
+        let findItem = this.items.find(el => el.id === +data.id)  //борьба с типизацией только так у меня получается.. правильно ли?
         if (findItem.quantity > 1) {
             findItem.quantity--
         } else {
@@ -135,6 +135,15 @@ class Cart {
     }
 
     _fetchData() {
+        fetch('https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/getBasket.json')
+            .then(result => result.json())
+            .then(data => {
+                this.data = data.contents
+                this.data.forEach(item => {
+                    this.items.push(new CartProduct(item))
+                })
+                this._render()       
+        })
         //если ранее были в корзине сохранены товары и эти данные мы получаем с сервера
     }
 
