@@ -85,6 +85,8 @@ class Cart {
         this.container = document.querySelector('.cart-block')
         this.items = [] //хранение добавленых товаров
         this.data = [] //возможность хранения полученных от сервера данных о ранее добавленых товарах
+        this.amount = 0
+        this.countGoods = 0
         this.shown = false
     }
 
@@ -100,8 +102,6 @@ class Cart {
             }
         })
         this._fetchData()
-        this._render()
-
     }
     
     addItem(data) {
@@ -148,15 +148,32 @@ class Cart {
     }
 
     _render() {
+        this._calcSum()
+        this._calcGoods()
         this.container.innerHTML = '' 
         this.items.forEach(item => this.container.insertAdjacentHTML('beforeend', item.render()))
+        if (this.items.length !== 0) {
+        this.container.insertAdjacentHTML('beforeend', `<p class="cart-p">Итого ${this.countGoods} шт. на сумму ${this.amount} руб.</p>`)
+        }
         //отрисовываем корзину
     }
 
     _calcSum() {
+        let sum = 0
+        this.items.forEach(item => {
+            sum += item.price * item.quantity
+        })
+        this.amount = sum
         //сумма товаров добавленных в корзину
     }
-
+    _calcGoods() {
+        let sum = 0
+        this.items.forEach(item => {
+            sum += item.quantity
+        })
+        this.countGoods = sum
+        //сумма товаров добавленных в корзину
+    }
 }
 
 let catalog = new ProductsList()
