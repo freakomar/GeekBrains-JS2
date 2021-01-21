@@ -85,14 +85,16 @@ class Cart {
         this.container = document.querySelector('.cart-block')
         this.items = [] //хранение добавленых товаров
         this.data = [] //возможность хранения полученных от сервера данных о ранее добавленых товарах
+        this.shown = false
     }
 
     init() {
         //вешаю обработчики в момент инициализации
         document.querySelector('.cart-button').addEventListener('click', () => {
-            document.querySelector('.cart-block').classList.toggle('invisible')
+            this.container.classList.toggle('invisible')
+            this.shown = !this.shown
         })//уместно ли так или лучше создавать переменные для дом элементов и уже с ними работать?
-        document.querySelector('.cart-block').addEventListener('click', (e) => {
+        this.container.addEventListener('click', (e) => {
             if (e.target.className === 'remove-button' || e.target.parentNode.className === 'remove-button') { //здесь не придумал ничего лучше, т.к. не срабатывает обработчик на вложенном элеиенте, пришлось маленько костылить, как оптимизировать?
                 cart.removeItem(e.target.parentNode.dataset)
             }
@@ -103,6 +105,10 @@ class Cart {
     }
     
     addItem(data) {
+        if (this.shown === false) {
+            this.container.classList.toggle('invisible')
+            this.shown = !this.shown
+        }
         let item = new CartProduct(data)
         let findItem = this.items.find(el => el.id === item.id)
         if (findItem) {
