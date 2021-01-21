@@ -126,7 +126,6 @@ class Cart {
             findItem.quantity--
         } else {
             let index = this.items.indexOf(findItem)
-            console.log(index)
             this.items.splice(index, 1)
         }
         this._render()
