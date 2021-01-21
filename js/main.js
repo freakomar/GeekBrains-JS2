@@ -93,7 +93,7 @@ class Cart {
             document.querySelector('.cart-block').classList.toggle('invisible')
         })//уместно ли так или лучше создавать переменные для дом элементов и уже с ними работать?
         document.querySelector('.cart-block').addEventListener('click', (e) => {
-            if (e.target.className === 'remove-button' || e.target.parentNode.className === 'remove-button') {
+            if (e.target.className === 'remove-button' || e.target.parentNode.className === 'remove-button') { //здесь не придумал ничего лучше, т.к. не срабатывает обработчик на вложенном элеиенте, пришлось маленько костылить, как оптимизировать?
                 cart.removeItem(e.target.parentNode.dataset)
             }
         })
