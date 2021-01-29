@@ -64,11 +64,13 @@ class CartProduct {
         this.id = +item.id_product
         this.title = item.product_name
         this.price = +item.price
-        this.quantity = 1 
+        this.quantity = 1
+        this.rendered = false 
     }
     
     render() {
-       return `<div class="cart-item" data-id="${this.id}">
+        this.rendered = true
+        return `<div class="cart-item" data-id="${this.id}">
                     <img src="http://placehold.it/100x75" alt="">
                     <p class="cart-p">${this.title}</p>
                     <p class="cart-p">${this.price} руб.</p>
@@ -98,14 +100,14 @@ class Cart {
         })
         this.container.addEventListener('click', (e) => {
             if (e.target.className === 'remove-button' || e.target.parentNode.className === 'remove-button') { //здесь не придумал ничего лучше, т.к. не срабатывает обработчик на вложенном элеиенте, пришлось маленько костылить, как оптимизировать?
-                cart.removeItem(e.target.parentNode.dataset)
+                this.removeItem(e.target.parentNode.dataset)
             }
         })
         this._fetchData()
     }
     
     addItem(data) {
-        if (this.shown === false) {
+        if (!this.shown) {
             this.container.classList.toggle('invisible')
             this.shown = !this.shown
         }
@@ -151,7 +153,7 @@ class Cart {
         this._calcGoods()
         this.container.innerHTML = '' 
         this.items.forEach(item => this.container.insertAdjacentHTML('beforeend', item.render()))
-        if (this.items.length !== 0) {
+        if (this.items.length) {
         this.container.insertAdjacentHTML('beforeend', `<p class="cart-p">Итого ${this.countGoods} шт. на сумму ${this.amount} руб.</p>`)
         }
         //отрисовываем корзину

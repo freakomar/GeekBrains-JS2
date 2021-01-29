@@ -1,0 +1,17 @@
+/* .form {
+    max-width: fit-content;
+    border: 1px solid #000;
+} */
+.regExp-field {
+    border: none;
+    display: flex;
+}
+
+.input {
+    margin: 0 10px;
+}
+
+.alert {
+    border-color: red;
+    color: red
+}
