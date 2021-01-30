@@ -35,7 +35,7 @@ class SubmitForm {
     checkAll() {
         this._checkName()
         this._checkPhone()
-        // this._checkEmail()
+        this._checkEmail()
     }
 
     _checkName () {
@@ -61,6 +61,19 @@ class SubmitForm {
             this.phone.innerText = 'Телефон должен быть строго в формате +7(000)000-0000'
             this.phone.classList.add('alert')
             this.inputPhone.classList.add('alert')
+        }
+    }
+
+    _checkEmail() {
+        let str = this.inputEmail.value
+        if (str.match(/^[a-z]+[-\.]?[a-z]+@[a-z]+\.(ru|com)$/i)) {
+            this.email.innerText = ''
+            this.email.classList.remove('alert')
+            this.inputEmail.classList.remove('alert')
+        } else {
+            this.email.innerText = 'Почта должна быть вида \n mymail@mail.ru my.mail@mail.ru или my-mail@mail.ru'
+            this.email.classList.add('alert')
+            this.inputEmail.classList.add('alert')
         }
     }
 }
