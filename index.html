@@ -8,42 +8,46 @@
     <script src="https://use.fontawesome.com/842230a8af.js"></script>
 </head>
 <body>
-    <header>
-        <div class="logo">eShop</div>
-        <div class="cart">
-            <form action="#" class="cart-search">
-                <input type="text" class="search-field" placeholder="Search">
-                <button class="search-button" type="submit">
-                    <i class="fa fa-search"></i>
-                </button>
-            </form>
-            <button class="cart-button">Корзина</button>
-            <div class="cart-block invisible">
-                <!-- <div class="cart-item">
-                    <img src="http://placehold.it/100x75" alt="">
-                    <p class="cart-title">title</p>
-                    <p class="cart-price">price</p>
-                    <p class="cart-quantity">q</p>
-                    <button class="remove-button">
-                        <i class="fa fa-times"></i>
+    <div class="vueApp">
+        <header>
+            <div class="logo">eShop</div>
+            <div class="cart">
+                <form action="#" class="cart-search">
+                    <input type="text" class="search-field" placeholder="Search">
+                    <button class="search-button" type="submit">
+                        <i class="fa fa-search"></i>
                     </button>
-                </div> -->
+                </form>
+                <button class="cart-button" @click="isShown = !isShown">Корзина</button>
+                <div class="cart-block" v-show="isShown">
+                    <div class="cart-item" v-for="item of cartProducts" :key="item.id_product">
+                        <img :src="cartImg" alt="">
+                        <p class="cart-p">{{ item.product_name }}</p>
+                        <p class="cart-p">{{ item.price }} руб.</p>
+                        <p class="cart-p">{{ item.quantity }} шт.</p>
+                        <button class="remove-button" @click="removeProduct(item)">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                    <p class="cart-p" v-show="cartProducts.length">Итого {{ calcGoods }} шт. на сумму {{ calcSum }} руб.</p>
+                </div>
+            </div>
+        </header>
+        <div class="wrapper">
+            <div class="products">
+                <div class="products-item" v-for="item of products" :key="item.id_product">
+                    <img :src="imgCatalog" :alt="item.product_name">
+                    <p class="item-title">{{ item.product_name }}</p>
+                    <p class="item-price">{{ item.price }}</p>
+                    <button class='products-btn' @click="addProduct(item)">Купить</button>
+                </div>
             </div>
         </div>
-    </header>
-    <div class="wrapper">
-        <div class="products">
-            <!-- <div class="catalog-item">
-                <img src="" alt="">
-                <p class="item-title"></p>
-                <p class="item-price"></p>
-                <button class='products-btn'>Купить</button>
-            </div> -->
-        </div>
+        <footer>
+            <p class="copyright">Copiright<sup>&copy;</sup></p>
+        </footer>
     </div>
-    <footer>
-        <p class="copyright">Copiright<sup>&copy;</sup></p>
-    </footer>
+    <script src="https://unpkg.com/vue@next"></script>
     <script src="./js/main.js"></script>
 </body>
 </html>
