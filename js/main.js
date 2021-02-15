@@ -1,30 +1,14 @@
+import {Products} from './products.js'
+import {Cart} from './cart.js'
+
 const vueApp = {
+    components: {
+        Products,
+        Cart
+    },
     data() {
         return {
-            API: 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses',
-            catalogUrl: '/catalogData.json',
-            cartUrl: '/getBasket.json',
-            products: [],
-            imgCatalog: 'https://placehold.it/200x150',
-            cartImg: 'http://placehold.it/100x75',
-            cartProducts: [],
-            isShown: false
-        }
-    },
-    computed: {
-        calcGoods () {
-            let sum = 0
-            this.cartProducts.forEach(item => {
-                sum += item.quantity
-            })
-            return sum
-        },
-        calcSum () {
-            let sum = 0
-            this.cartProducts.forEach(item => {
-                sum += item.quantity * item.price
-            })
-            return sum
+            API: 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses'
         }
     },
     methods: {
@@ -32,58 +16,7 @@ const vueApp = {
             return fetch(url)
                 .then(result => result.json())
                 .catch(error => console.log(error));
-        },
-        addProduct(product) {
-            if(!this.isShown) {
-                this.isShown = !this.isShown
-            }
-            this.getJson(`${this.API}/addToBasket.json`)
-            .then(data => {
-                if(data.result) {
-                    let find = this.cartProducts.find(el => el.id_product === product.id_product)
-                    if(find) {
-                        find.quantity++
-                    } else {
-                        product.quantity = 1
-                        this.cartProducts.push(product)
-                    }
-                }
-                else {
-                    console.log('error')
-                }
-            })
-        },
-        removeProduct(product) {
-            this.getJson(`${this.API}/deleteFromBasket.json`)
-            .then(data => {
-                if(data.result) {
-                    let find = this.cartProducts.find(el => el.id_product === product.id_product)
-                    if(find.quantity > 1) {
-                        find.quantity--
-                    } else {
-                        let index = this.cartProducts.indexOf(find)
-                        this.cartProducts.splice(index, 1)
-                    }
-                } else {
-                    console.log('error')
-                }
-            })
         }
-    },
-    mounted() {
-        this.getJson(`${this.API + this.catalogUrl}`)
-            .then(data => {
-                for (let product of data) {
-                    this.products.push(product);
-                }
-            });
-        this.getJson(`${this.API + this.cartUrl}`)
-            .then(data => data.contents)
-            .then(data => {
-                for (let product of data) {
-                    this.cartProducts.push(product);
-                }
-            })
     }
 }
 

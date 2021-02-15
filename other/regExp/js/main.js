@@ -17,7 +17,7 @@ One: 'That's great. Well, you better get going. You don't want to be late.'
 Two: 'I'll see you next time.'
 One: 'Sure. Bye.'`
 
-console.log(str.replace(/\B\'/g, '"'))
+console.log(str.replace(/\B'/g, '"'))
 
 
 //третье задание
