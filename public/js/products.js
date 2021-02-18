@@ -1,29 +1,31 @@
 import {ProductsItem} from './products-item.js'
 
 export const Products = {
+    inject: ['API', 'getJson'],
     components: {
         ProductsItem
     },
     data() {
         return {
-            catalogUrl: '/catalogData.json',
             products: [],
             imgCatalog: 'https://placehold.it/200x150' 
         }
     },
+    computed: {
+        filtered() {
+            return this.products.filter(item => new RegExp(this.$root.$refs.search.userSearch, 'i').test(item.product_name));
+        }
+    },
     mounted() {
-        this.$root.getJson(`${this.$root.API + this.catalogUrl}`)
+        this.getJson(`/api/products`)
             .then(data => {
+                if (!data) {
+                    return;
+                }
                 for (let product of data) {
                     this.products.push(product);
                 }
             });
-        this.$root.getJson(`getProducts.json`)
-            .then(data => {
-                for (let product of data) {
-                    this.products.push(product);
-                }
-            })
     },
     template: `<div class='products'>
                     <ProductsItem v-for='el of products' :key='el.id_product' :img='imgCatalog' :item='el'>

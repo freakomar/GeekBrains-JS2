@@ -1,16 +1,15 @@
 import {CartItem} from './cart-item.js'
 
 export const Cart = {
+    inject: ['API', 'getJson', 'postJson', 'putJson'],
     components: {
         CartItem
     },
     data() {
         return {
-            cartUrl: '/getBasket.json',
             cartProducts: [],
             cartImg: 'http://placehold.it/100x75',
             isShown: false,
-            userSearch: ''
         }
     },
     computed: {
@@ -34,21 +33,23 @@ export const Cart = {
             if(!this.isShown) {
                 this.isShown = !this.isShown
             }
-            this.$root.getJson(`${this.$root.API}/addToBasket.json`)
-            .then(data => {
-                if(data.result) {
-                    let find = this.cartProducts.find(el => el.id_product === product.id_product)
-                    if(find) {
-                        find.quantity++
-                    } else {
-                        let prod = Object.assign({quantity: 1}, product)
+            let find = this.cartProducts.find(el => el.id_product === product.id_product)
+            if(find) {
+                this.putJson(`/api/cart/${find.id_product}`, { quantity: 1 })
+                    .then(data => {
+                        if (data.result) {
+                            find.quantity++
+                        }
+                    });
+                return;
+            }
+            let prod = Object.assign({ quantity: 1 }, product)
+            this.postJson(`/api/cart`, prod)
+                .then(data => {
+                    if (data.result) {
                         this.cartProducts.push(prod)
                     }
-                }
-                else {
-                    console.log('error')
-                }
-            })
+                })
         },
         removeProduct(product) {
             this.$root.getJson(`${this.$root.API}/deleteFromBasket.json`)
@@ -68,13 +69,15 @@ export const Cart = {
         }
     },
     mounted() {
-        this.$root.getJson(`${this.$root.API + this.cartUrl}`)
-            .then(data => data.contents)
+        this.getJson(`/api/cart`)
             .then(data => {
-                for (let product of data) {
-                    this.cartProducts.push(product);
+                if (!data) {
+                    return;
                 }
-            })
+                for (let product of data.contents) {
+                    this.cartItems.push(product);
+                }
+            });
     },
     template: `<div class="cart">
                     <form action="#" class="cart-search">
